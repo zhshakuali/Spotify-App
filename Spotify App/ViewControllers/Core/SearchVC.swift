@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SearchVC.swift
 //  Spotify App
 //
 //  Created by Жансая Шакуали on 02.01.2024.
@@ -7,13 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SearchVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        title = "Search"
+        view.backgroundColor = .systemBackground
     }
+    
 
 
 }
-
