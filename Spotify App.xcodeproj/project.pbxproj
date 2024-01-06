@@ -32,6 +32,8 @@
 		9F2D8B8D2B44325F00F901B4 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2D8B8C2B44325F00F901B4 /* Artist.swift */; };
 		9F2D8B8F2B44326E00F901B4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2D8B8E2B44326E00F901B4 /* UserProfile.swift */; };
 		9F2D8B912B44327E00F901B4 /* AudioTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2D8B902B44327E00F901B4 /* AudioTrack.swift */; };
+		9F2D8B932B44706200F901B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2D8B922B44706200F901B4 /* Extensions.swift */; };
+		9FE119B52B47294B0092C592 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE119B42B47294B0092C592 /* AuthResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		9F2D8B8C2B44325F00F901B4 /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		9F2D8B8E2B44326E00F901B4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		9F2D8B902B44327E00F901B4 /* AudioTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrack.swift; sourceTree = "<group>"; };
+		9F2D8B922B44706200F901B4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		9FE119B42B47294B0092C592 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +169,7 @@
 				9F2D8B362B442E9900F901B4 /* AppDelegate.swift */,
 				9F2D8B382B442E9900F901B4 /* SceneDelegate.swift */,
 				9F2D8B3F2B442E9A00F901B4 /* Assets.xcassets */,
+				9F2D8B922B44706200F901B4 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 				9F2D8B8C2B44325F00F901B4 /* Artist.swift */,
 				9F2D8B8E2B44326E00F901B4 /* UserProfile.swift */,
 				9F2D8B902B44327E00F901B4 /* AudioTrack.swift */,
+				9FE119B42B47294B0092C592 /* AuthResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -377,11 +383,13 @@
 				9F2D8B722B44306100F901B4 /* SearchVC.swift in Sources */,
 				9F2D8B912B44327E00F901B4 /* AudioTrack.swift in Sources */,
 				9F2D8B742B44307300F901B4 /* LibraryVC.swift in Sources */,
+				9FE119B52B47294B0092C592 /* AuthResponse.swift in Sources */,
 				9F2D8B892B4431B500F901B4 /* HapticsManager.swift in Sources */,
 				9F2D8B832B44313100F901B4 /* SearchResultsVC.swift in Sources */,
 				9F2D8B702B44304E00F901B4 /* HomeVC.swift in Sources */,
 				9F2D8B772B44309B00F901B4 /* AuthVC.swift in Sources */,
 				9F2D8B792B4430A700F901B4 /* SettingsVC.swift in Sources */,
+				9F2D8B932B44706200F901B4 /* Extensions.swift in Sources */,
 				9F2D8B8D2B44325F00F901B4 /* Artist.swift in Sources */,
 				9F2D8B7B2B4430B500F901B4 /* WelcomeVC.swift in Sources */,
 				9F2D8B8F2B44326E00F901B4 /* UserProfile.swift in Sources */,
