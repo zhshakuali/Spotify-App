@@ -127,14 +127,14 @@ final class AuthManager {
         }
     }
     
-    public func refreshIfNeeded(completion: @escaping (Bool) -> Void) {
+    public func refreshIfNeeded(completion: ((Bool) -> Void)?) {
         
         guard !refreshingToken else {
             return
         }
         
         guard shouldRefreshToken else {
-            completion(true)
+            completion?(true)
             return
         }
         guard let refreshToken = self.refreshToken else { return }
@@ -161,7 +161,7 @@ final class AuthManager {
         
         guard let basicString = data?.base64EncodedString() else {
             print("Failure with base64")
-            completion(false)
+            completion?(false)
             return
         }
         request.setValue("Basic \(basicString)", forHTTPHeaderField: "Authorization")
@@ -172,7 +172,7 @@ final class AuthManager {
             
             guard let data = data,
                   error == nil else {
-                completion(false)
+                completion?(false)
                 return
             }
             do {
@@ -180,11 +180,11 @@ final class AuthManager {
                 self?.onRefreshBlocks.forEach { $0(result.access_token) }
                 self?.onRefreshBlocks.removeAll()
                 self?.cacheToken(result: result)
-                completion(true)
+                completion?(true)
             }
             catch {
                 print(error.localizedDescription)
-                completion(false)
+                completion?(false)
             }
         }
         task.resume()

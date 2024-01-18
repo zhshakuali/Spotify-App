@@ -76,6 +76,8 @@ class ProfileVC: UIViewController {
         headerView.addSubview(imageView)
         imageView.center = headerView.center
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = imageSize/2
         imageView.sd_setImage(with: url)
         
         DispatchQueue.main.async {

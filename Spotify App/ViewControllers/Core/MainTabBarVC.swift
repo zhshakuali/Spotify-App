@@ -32,6 +32,10 @@ class MainTabBarVC: UITabBarController {
         vc2.navigationItem.largeTitleDisplayMode = .always
         vc3.navigationItem.largeTitleDisplayMode = .always
         
+        vc1.navigationBar.tintColor = .label
+        vc2.navigationBar.tintColor = .label
+        vc3.navigationBar.tintColor = .label
+        
         vc1.title = "Browse"
         vc2.title = "Search"
         vc3.title = "Library"
