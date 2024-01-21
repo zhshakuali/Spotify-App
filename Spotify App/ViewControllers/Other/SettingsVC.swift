@@ -59,6 +59,7 @@ class SettingsVC: UIViewController {
 //MARK: -TableView
 
 extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
