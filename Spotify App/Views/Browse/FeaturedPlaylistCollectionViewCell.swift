@@ -63,8 +63,6 @@ class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with viewModel: FeaturedPlaylistCellViewModel) {
-//        playlistNameLabel.text = viewModel.name
-//        creatorNameLabel.text = viewModel.creatorName
         playlistCoverImageView.sd_setImage(with: viewModel.artworURL)
     }
     
@@ -74,13 +72,6 @@ class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
             playlistCoverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             playlistCoverImageView.heightAnchor.constraint(equalToConstant: contentView.height),
             playlistCoverImageView.widthAnchor.constraint(equalToConstant: contentView.width)
-            
-//            playlistNameLabel.topAnchor.constraint(equalTo: playlistCoverImageView.bottomAnchor, constant: 5),
-//            playlistNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//
-//            creatorNameLabel.topAnchor.constraint(equalTo: playlistNameLabel.bottomAnchor, constant: 5),
-//            creatorNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
-            
         ])
     }
 }

@@ -11,9 +11,25 @@ enum BrowseSectionType {
     case newReleases(viewModels: [NewReleasesCellviewModel])
     case featuredPlaylists(viewModels: [FeaturedPlaylistCellViewModel])
     case recommendedTracks(viewModels: [RecommendedTracksCellViewModel])
+    
+    var title: String {
+        switch self {
+            
+        case .newReleases:
+            return "New Released Albums"
+        case .featuredPlaylists:
+            return "Featured Playlists"
+        case .recommendedTracks:
+            return "Recommended"
+        }
+    }
 }
 
 class HomeVC: UIViewController {
+    
+    private var newAlbums: [Album] = []
+    private var playlists: [Playlist] = []
+    private var tracks: [AudioTrack] = []
     
     private var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
@@ -56,6 +72,10 @@ class HomeVC: UIViewController {
                                 forCellWithReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier)
         collectionView.register(RecommendedTrackCollectionViewCell.self,
                                 forCellWithReuseIdentifier: RecommendedTrackCollectionViewCell.identifier)
+        
+        collectionView.register(TitleHeaderCollectionReusableView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: TitleHeaderCollectionReusableView.identifier)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -121,7 +141,6 @@ class HomeVC: UIViewController {
                         print(error.localizedDescription)
                     }
                 }
-                
             case .failure(let error):
                 break
             }
@@ -133,7 +152,6 @@ class HomeVC: UIViewController {
                 return
             }
             self.configureModels(newAlbums: newAlbums, playlists: playlists, tracks: tracks)
-            
         }
     }
     
@@ -141,6 +159,10 @@ class HomeVC: UIViewController {
                                  playlists: [Playlist],
                                  tracks: [AudioTrack]
     ) {
+        self.newAlbums = newAlbums
+        self.playlists = playlists
+        self.tracks = tracks
+        
         sections.append(.newReleases(viewModels: newAlbums.compactMap({
             return NewReleasesCellviewModel(name: $0.name,
                                             artWorkURL: URL(string: $0.images.first?.url ?? " "),
@@ -157,7 +179,7 @@ class HomeVC: UIViewController {
         sections.append(.recommendedTracks(viewModels: tracks.compactMap({
             return RecommendedTracksCellViewModel(
                 name: $0.name,
-                artworURL: URL(string: $0.album.images.first?.url ?? " "),
+                artworURL: URL(string: $0.album?.images.first?.url ?? " "),
                 artistName: $0.artists.first?.name ?? "-")
         })))
         collectionView.reloadData()
@@ -188,6 +210,27 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = sections[indexPath.section]
+        
+        switch section {
+        case .newReleases:
+            let album = newAlbums[indexPath.row]
+            let vc = AlbumVC(album: album)
+            vc.title = album.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+        case .featuredPlaylists:
+            let playlist = playlists[indexPath.row]
+            let vc = PlaylistVC(playlist: playlist)
+            vc.title = playlist.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(vc, animated: true)
+        case .recommendedTracks:
+            break
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -228,10 +271,33 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             return cell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: TitleHeaderCollectionReusableView.identifier,
+            for: indexPath) as? TitleHeaderCollectionReusableView,
+              kind == UICollectionView.elementKindSectionHeader else {
+            return UICollectionReusableView()
+        }
         
+        let section = indexPath.section
+        let title = sections[section].title
+        header.configure(with: title)
+        return header
     }
     
     static func createSectionLayout(section: Int) -> NSCollectionLayoutSection {
+        
+       let supplementaryViews = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .absolute(50)),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top)
+        ]
+        
         switch section {
         case 0:
             //item
@@ -246,21 +312,22 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(360)),
+                    heightDimension: .absolute(300)),
                 subitem: item,
-                count: 3)
+                count: 2)
             
             
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0),
-                    heightDimension: .absolute(360)),
+                    heightDimension: .absolute(300)),
                 subitem: verticalGroup,
                 count: 1)
             
             //section
             let section = NSCollectionLayoutSection(group: horizontalGroup)
             section.orthogonalScrollingBehavior = .groupPaging
+            section.boundarySupplementaryItems = supplementaryViews
             return section
         case 1:
             //item
@@ -279,7 +346,6 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
                 subitem: item,
                 count: 2)
             
-            
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .absolute(200),
@@ -290,6 +356,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             //section
             let section = NSCollectionLayoutSection(group: horizontalGroup)
             section.orthogonalScrollingBehavior = .groupPaging
+            section.boundarySupplementaryItems = supplementaryViews
             return section
         case 2:
             //item
@@ -310,6 +377,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             
             //section
             let section = NSCollectionLayoutSection(group: group)
+            section.boundarySupplementaryItems = supplementaryViews
             return section
             
         default:
@@ -327,7 +395,6 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
                     heightDimension: .absolute(360)),
                 subitem: item,
                 count: 1)
-            
             //section
             let section = NSCollectionLayoutSection(group: group)
             return section
