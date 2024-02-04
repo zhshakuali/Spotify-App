@@ -10,5 +10,4 @@ import Foundation
 struct AlbumTrackViewModel {
     let name: String?
     let artist: String?
-   
 }

@@ -9,9 +9,6 @@ import UIKit
 import WebKit
 
 class AuthVC: UIViewController, WKNavigationDelegate {
-    
-    
-    
     private let webView: WKWebView = {
         let prefs = WKWebpagePreferences()
         prefs.allowsContentJavaScript = true
@@ -22,7 +19,7 @@ class AuthVC: UIViewController, WKNavigationDelegate {
     }()
     
     public var completionHandler: ((Bool) -> Void)?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Sign In"
