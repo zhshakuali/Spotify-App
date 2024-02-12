@@ -14,8 +14,4 @@ class LibraryVC: UIViewController {
         title = "Library"
         view.backgroundColor = .systemBackground
     }
-    
-
-
-
 }

@@ -114,7 +114,7 @@ extension SearchVC: SearchResultsVCDelegate {
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
         case .track(let model):
-            break
+            PlaybackPresenter.shared.startPlayback(viewController: self, track: model)
         }
     }
 }

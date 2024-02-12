@@ -82,7 +82,6 @@ class HomeVC: UIViewController {
         collectionView.backgroundColor = .systemBackground
     }
     
-    
     private func fetchData() {
         let group = DispatchGroup()
         group.enter()
@@ -164,10 +163,11 @@ class HomeVC: UIViewController {
         self.tracks = tracks
         
         sections.append(.newReleases(viewModels: newAlbums.compactMap({
-            return NewReleasesCellviewModel(name: $0.name,
-                                            artWorkURL: URL(string: $0.images.first?.url ?? " "),
-                                            numberOfTracks: $0.total_tracks,
-                                            artistName: $0.artists.first?.name ?? " "
+            return NewReleasesCellviewModel(
+                name: $0.name,
+                artWorkURL: URL(string: $0.images.first?.url ?? " "),
+                numberOfTracks: $0.total_tracks,
+                artistName: $0.artists.first?.name ?? " "
             )
         })))
         sections.append(.featuredPlaylists(viewModels: playlists.compactMap({
@@ -229,6 +229,9 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
         case .recommendedTracks:
+            
+            let track = tracks[indexPath.row]
+            PlaybackPresenter.shared.startPlayback(viewController: self, track: track)
             break
         }
     }

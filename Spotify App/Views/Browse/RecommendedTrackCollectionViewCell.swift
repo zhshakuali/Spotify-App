@@ -50,6 +50,7 @@ class RecommendedTrackCollectionViewCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        contentView.clipsToBounds = true
         albumCoverImageView.sizeToFit()
         artistNameLabel.sizeToFit()
         trackNameLabel.sizeToFit()
