@@ -92,6 +92,6 @@ required init?(coder: NSCoder) {
         nameLabel.text = viewModel.name
         descriptionLabel.text = viewModel.description
         ownerNameLabel.text = viewModel.owner
-        imageView.sd_setImage(with: viewModel.artWorkURL)
+        imageView.sd_setImage(with: viewModel.artWorkURL, placeholderImage: UIImage(systemName: "photo"))
     }
 }

@@ -71,7 +71,36 @@ class AlbumVC: UIViewController {
             PlaylistHeaderCollectionReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: PlaylistHeaderCollectionReusableView.identifier)
+        fetchData()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapAction))
+    }
+    
+    private var viewModels = [AlbumTrackViewModel]()
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        collectionView.frame = view.bounds
+    }
+    
+    @objc func didTapAction() {
+        let actionSheet = UIAlertController(title: album.name, message: "Action", preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        actionSheet.addAction(UIAlertAction(title: "Save album", style: .default, handler: { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            APICaller.shared.saveAlbums(album: self.album) { success in
+                if success {
+                    NotificationCenter.default.post(name: .savedNotification, object: nil)
+                }
+            }
+            
+        }))
+        present(actionSheet, animated: true)
+    }
+    
+    private func fetchData() {
         APICaller.shared.getAlbumsDetails(for: album) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
@@ -88,15 +117,7 @@ class AlbumVC: UIViewController {
                     print(error.localizedDescription)
                 }
             }
-            
         }
-    }
-    
-    private var viewModels = [AlbumTrackViewModel]()
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
     }
 }
 
