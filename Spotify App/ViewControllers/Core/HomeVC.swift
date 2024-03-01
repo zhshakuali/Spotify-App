@@ -253,7 +253,7 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let section = sections[indexPath.section]
-        
+        HapticsManager.shared.vibrateForSelection()
         switch section {
         case .newReleases:
             let album = newAlbums[indexPath.row]
