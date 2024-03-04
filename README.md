@@ -30,4 +30,4 @@ Spotify is a popular music streaming service. Creating a clone of the Spotify us
 
 
 ## Screenshots
-<img src="https://github.com/zhshakuali/Spotify-App/assets/119519373/ae4013a3-8d3c-424e-92a9-d7fe9f80beed" width=«500" height="500">
+<img src="https://github.com/zhshakuali/Spotify-App/assets/119519373/ae4013a3-8d3c-424e-92a9-d7fe9f80beed" width=500" height="500">
